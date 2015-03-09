@@ -28,6 +28,8 @@
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="9a80334a-1edb-45e2-b449-957b4c71b3ec" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/SimpleWCF/Service1/mex" />
     <MetadataFile FileName="SimpleWCF.xsd" MetadataType="Schema" ID="477eb83b-82c5-4300-8a0a-9b6b70f54e3a" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/SimpleWCF/Service1/mex" />
     <MetadataFile FileName="Message.xsd" MetadataType="Schema" ID="6801bd39-1ad1-4dc7-983b-142d5f35f1da" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/SimpleWCF/Service1/mex" />
+    <MetadataFile FileName="System.IO.xsd" MetadataType="Schema" ID="684b2de4-8829-4758-a0cb-8c880009a7ce" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/SimpleWCF/Service1/mex" />
+    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="d20ff4dc-61a9-4825-af10-4985b114f6d3" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/SimpleWCF/Service1/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

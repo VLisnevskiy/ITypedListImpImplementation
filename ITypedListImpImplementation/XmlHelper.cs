@@ -5,6 +5,8 @@
  *************************************************************************************************/
 
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace ITypedListImpImplementation
@@ -14,6 +16,8 @@ namespace ITypedListImpImplementation
     /// </summary>
     public static class XmlHelper
     {
+        #region XML
+
         /// <summary>
         /// Get value of xml attribute.
         /// </summary>
@@ -84,6 +88,27 @@ namespace ITypedListImpImplementation
         }
 
         /// <summary>
+        /// Get value of xml element.
+        /// </summary>
+        /// <param name="rootElement">Input element.</param>
+        /// <param name="type">Type of results.</param>
+        /// <returns>Return value of element.</returns>
+        public static object GetValue(this XElement rootElement, Type type)
+        {
+            object result = DBNull.Value;
+            XmlQueryStringConverter converter = new XmlQueryStringConverter();
+            if (null != rootElement)
+            {
+                if (converter.CanConvert(type))
+                {
+                    result = converter.ConvertStringToValue(rootElement.Value, type);
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Convert input string value to some type.
         /// </summary>
         /// <param name="value">Input string value.</param>
@@ -103,6 +128,23 @@ namespace ITypedListImpImplementation
             }
 
             return null;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Get custom attribute from method <see cref="T:System.Reflection.PropertyInfo"/>.
+        /// </summary>
+        /// <typeparam name="TAttribute">Type of attribute.</typeparam>
+        /// <param name="property">Method.</param>
+        /// <param name="inherit">true to search this member's inheritance chain to
+        /// find the attributes; otherwise, false.</param>
+        /// <returns>Return attribute.</returns>
+        public static TAttribute GetAttribute<TAttribute>(this PropertyInfo property, bool inherit)
+        {
+            return property.GetCustomAttributes(typeof(TAttribute), inherit)
+                .Cast<TAttribute>()
+                .FirstOrDefault();
         }
     }
 }

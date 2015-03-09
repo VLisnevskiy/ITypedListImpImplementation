@@ -74,17 +74,70 @@ namespace ITypedListImpImplementation.SimpleWCF {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DataWrapper", Namespace="http://schemas.datacontract.org/2004/07/SimpleWCF")]
+    [System.SerializableAttribute()]
+    public partial class DataWrapper : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.IO.Stream ValueField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TypeName {
+            get {
+                return this.TypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeNameField, value) != true)) {
+                    this.TypeNameField = value;
+                    this.RaisePropertyChanged("TypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.IO.Stream Value {
+            get {
+                return this.ValueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValueField, value) != true)) {
+                    this.ValueField = value;
+                    this.RaisePropertyChanged("Value");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SimpleWCF.IService1")]
     public interface IService1 {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        string GetData(int value);
-        
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        System.IAsyncResult BeginGetData(int value, System.AsyncCallback callback, object asyncState);
-        
-        string EndGetData(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
         ITypedListImpImplementation.SimpleWCF.CompositeType GetDataUsingDataContract(ITypedListImpImplementation.SimpleWCF.CompositeType composite);
@@ -101,29 +154,26 @@ namespace ITypedListImpImplementation.SimpleWCF {
         System.IAsyncResult BeginGetXml(System.AsyncCallback callback, object asyncState);
         
         System.IO.Stream EndGetXml(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateProjectItems", ReplyAction="http://tempuri.org/IService1/UpdateProjectItemsResponse")]
+        void UpdateProjectItems(System.IO.Stream data);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/UpdateProjectItems", ReplyAction="http://tempuri.org/IService1/UpdateProjectItemsResponse")]
+        System.IAsyncResult BeginUpdateProjectItems(System.IO.Stream data, System.AsyncCallback callback, object asyncState);
+        
+        void EndUpdateProjectItems(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
+        ITypedListImpImplementation.SimpleWCF.DataWrapper GetData();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
+        System.IAsyncResult BeginGetData(System.AsyncCallback callback, object asyncState);
+        
+        ITypedListImpImplementation.SimpleWCF.DataWrapper EndGetData(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IService1Channel : ITypedListImpImplementation.SimpleWCF.IService1, System.ServiceModel.IClientChannel {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GetDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public GetDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public string Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
-            }
-        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -166,13 +216,26 @@ namespace ITypedListImpImplementation.SimpleWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public ITypedListImpImplementation.SimpleWCF.DataWrapper Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((ITypedListImpImplementation.SimpleWCF.DataWrapper)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class Service1Client : System.ServiceModel.ClientBase<ITypedListImpImplementation.SimpleWCF.IService1>, ITypedListImpImplementation.SimpleWCF.IService1 {
-        
-        private BeginOperationDelegate onBeginGetDataDelegate;
-        
-        private EndOperationDelegate onEndGetDataDelegate;
-        
-        private System.Threading.SendOrPostCallback onGetDataCompletedDelegate;
         
         private BeginOperationDelegate onBeginGetDataUsingDataContractDelegate;
         
@@ -185,6 +248,18 @@ namespace ITypedListImpImplementation.SimpleWCF {
         private EndOperationDelegate onEndGetXmlDelegate;
         
         private System.Threading.SendOrPostCallback onGetXmlCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginUpdateProjectItemsDelegate;
+        
+        private EndOperationDelegate onEndUpdateProjectItemsDelegate;
+        
+        private System.Threading.SendOrPostCallback onUpdateProjectItemsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDataDelegate;
+        
+        private EndOperationDelegate onEndGetDataDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDataCompletedDelegate;
         
         public Service1Client() {
         }
@@ -205,61 +280,13 @@ namespace ITypedListImpImplementation.SimpleWCF {
                 base(binding, remoteAddress) {
         }
         
-        public event System.EventHandler<GetDataCompletedEventArgs> GetDataCompleted;
-        
         public event System.EventHandler<GetDataUsingDataContractCompletedEventArgs> GetDataUsingDataContractCompleted;
         
         public event System.EventHandler<GetXmlCompletedEventArgs> GetXmlCompleted;
         
-        public string GetData(int value) {
-            return base.Channel.GetData(value);
-        }
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> UpdateProjectItemsCompleted;
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginGetData(int value, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetData(value, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public string EndGetData(System.IAsyncResult result) {
-            return base.Channel.EndGetData(result);
-        }
-        
-        private System.IAsyncResult OnBeginGetData(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            int value = ((int)(inValues[0]));
-            return this.BeginGetData(value, callback, asyncState);
-        }
-        
-        private object[] OnEndGetData(System.IAsyncResult result) {
-            string retVal = this.EndGetData(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnGetDataCompleted(object state) {
-            if ((this.GetDataCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetDataCompleted(this, new GetDataCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void GetDataAsync(int value) {
-            this.GetDataAsync(value, null);
-        }
-        
-        public void GetDataAsync(int value, object userState) {
-            if ((this.onBeginGetDataDelegate == null)) {
-                this.onBeginGetDataDelegate = new BeginOperationDelegate(this.OnBeginGetData);
-            }
-            if ((this.onEndGetDataDelegate == null)) {
-                this.onEndGetDataDelegate = new EndOperationDelegate(this.OnEndGetData);
-            }
-            if ((this.onGetDataCompletedDelegate == null)) {
-                this.onGetDataCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDataCompleted);
-            }
-            base.InvokeAsync(this.onBeginGetDataDelegate, new object[] {
-                        value}, this.onEndGetDataDelegate, this.onGetDataCompletedDelegate, userState);
-        }
+        public event System.EventHandler<GetDataCompletedEventArgs> GetDataCompleted;
         
         public ITypedListImpImplementation.SimpleWCF.CompositeType GetDataUsingDataContract(ITypedListImpImplementation.SimpleWCF.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
@@ -357,6 +384,103 @@ namespace ITypedListImpImplementation.SimpleWCF {
                 this.onGetXmlCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetXmlCompleted);
             }
             base.InvokeAsync(this.onBeginGetXmlDelegate, null, this.onEndGetXmlDelegate, this.onGetXmlCompletedDelegate, userState);
+        }
+        
+        public void UpdateProjectItems(System.IO.Stream data) {
+            base.Channel.UpdateProjectItems(data);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginUpdateProjectItems(System.IO.Stream data, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUpdateProjectItems(data, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public void EndUpdateProjectItems(System.IAsyncResult result) {
+            base.Channel.EndUpdateProjectItems(result);
+        }
+        
+        private System.IAsyncResult OnBeginUpdateProjectItems(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            System.IO.Stream data = ((System.IO.Stream)(inValues[0]));
+            return this.BeginUpdateProjectItems(data, callback, asyncState);
+        }
+        
+        private object[] OnEndUpdateProjectItems(System.IAsyncResult result) {
+            this.EndUpdateProjectItems(result);
+            return null;
+        }
+        
+        private void OnUpdateProjectItemsCompleted(object state) {
+            if ((this.UpdateProjectItemsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.UpdateProjectItemsCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void UpdateProjectItemsAsync(System.IO.Stream data) {
+            this.UpdateProjectItemsAsync(data, null);
+        }
+        
+        public void UpdateProjectItemsAsync(System.IO.Stream data, object userState) {
+            if ((this.onBeginUpdateProjectItemsDelegate == null)) {
+                this.onBeginUpdateProjectItemsDelegate = new BeginOperationDelegate(this.OnBeginUpdateProjectItems);
+            }
+            if ((this.onEndUpdateProjectItemsDelegate == null)) {
+                this.onEndUpdateProjectItemsDelegate = new EndOperationDelegate(this.OnEndUpdateProjectItems);
+            }
+            if ((this.onUpdateProjectItemsCompletedDelegate == null)) {
+                this.onUpdateProjectItemsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUpdateProjectItemsCompleted);
+            }
+            base.InvokeAsync(this.onBeginUpdateProjectItemsDelegate, new object[] {
+                        data}, this.onEndUpdateProjectItemsDelegate, this.onUpdateProjectItemsCompletedDelegate, userState);
+        }
+        
+        public ITypedListImpImplementation.SimpleWCF.DataWrapper GetData() {
+            return base.Channel.GetData();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetData(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetData(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public ITypedListImpImplementation.SimpleWCF.DataWrapper EndGetData(System.IAsyncResult result) {
+            return base.Channel.EndGetData(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetData(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetData(callback, asyncState);
+        }
+        
+        private object[] OnEndGetData(System.IAsyncResult result) {
+            ITypedListImpImplementation.SimpleWCF.DataWrapper retVal = this.EndGetData(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDataCompleted(object state) {
+            if ((this.GetDataCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDataCompleted(this, new GetDataCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDataAsync() {
+            this.GetDataAsync(null);
+        }
+        
+        public void GetDataAsync(object userState) {
+            if ((this.onBeginGetDataDelegate == null)) {
+                this.onBeginGetDataDelegate = new BeginOperationDelegate(this.OnBeginGetData);
+            }
+            if ((this.onEndGetDataDelegate == null)) {
+                this.onEndGetDataDelegate = new EndOperationDelegate(this.OnEndGetData);
+            }
+            if ((this.onGetDataCompletedDelegate == null)) {
+                this.onGetDataCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDataCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDataDelegate, null, this.onEndGetDataDelegate, this.onGetDataCompletedDelegate, userState);
         }
     }
 }

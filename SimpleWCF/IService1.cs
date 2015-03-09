@@ -13,13 +13,16 @@ namespace SimpleWCF
     public interface IService1
     {
         [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
         [OperationContract]
         Stream GetXml();
+
+        [OperationContract]
+        void UpdateProjectItems(Stream data);
+
+        [OperationContract]
+        DataWrapper GetData();
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
@@ -42,6 +45,28 @@ namespace SimpleWCF
         {
             get { return stringValue; }
             set { stringValue = value; }
+        }
+    }
+
+    [DataContract]
+    public class DataWrapper
+    {
+        [DataMember]
+        public string TypeName { get; set; }
+
+        private object innerValue;
+
+        [DataMember]
+        public Stream Value
+        {
+            get
+            {
+                return innerValue as Stream;
+            }
+            set
+            {
+                innerValue = value;
+            }
         }
     }
 }

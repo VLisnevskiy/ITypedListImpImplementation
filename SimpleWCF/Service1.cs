@@ -54,5 +54,18 @@ namespace SimpleWCF
                 throw ex;
             }
         }
+
+        public DataWrapper GetData()
+        {
+            DataWrapper result = new DataWrapper();
+            result.Value = GetXml();
+
+            return result;
+        }
+
+        public void UpdateProjectItems(Stream data)
+        {
+            XDocument doc = XDocument.Load(data);
+        }
     }
 }

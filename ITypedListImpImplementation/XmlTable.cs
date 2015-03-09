@@ -23,6 +23,8 @@ namespace ITypedListImpImplementation
 
         public string TableName { get; protected set; }
 
+        public string TypeName { get; set; }
+
         public List<XmlColumn> Columns { get; protected set; }
 
         #endregion
@@ -78,6 +80,8 @@ namespace ITypedListImpImplementation
             }
 
             XmlTable table = new XmlTable(document.Root.GetAttributeValue<string>("TableName"));
+            table.TypeName = document.Root.GetAttributeValue<string>("TypeName");
+
             foreach (XElement element in document.Root.Elements("Header").Elements("Column"))
             {
                 table.Columns.Add(new XmlColumn(element));

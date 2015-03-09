@@ -8,7 +8,10 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using ITypedListImpImplementation.SimpleWCF;
+using ITypedListImpImplementation.Entity;
 
 namespace ITypedListImpImplementation
 {
@@ -120,20 +123,50 @@ namespace ITypedListImpImplementation
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
+            DBRepository dbRepository = new DBRepository();
+            foreach (CustomFieldSetup customFieldSetup in dbRepository.CustomFieldSetups)
+            {
+                
+            }
+
+            foreach (ProjectItem projectItem in dbRepository.ProjectItems)
+            {
+                
+            }
+
             using (Service1Client client = new Service1Client())
             {
-                using (Stream stream = client.GetXml())
+                Stream res = client.GetXml();
+
+                XmlSerializer serializer = new XmlSerializer(typeof (SerializableContainer<ProjectItem>));
+                object ob = serializer.Deserialize(res);
+
+                res = new MemoryStream();
+                serializer.Serialize(res, ob);
+                res.Position = 0;
+
+                using (res)
                 {
-                    table = XmlTable.Load(stream);
+                    table = XmlTable.Load(res);
+                }
+
+                XDocument doc = new XDocument();
+                doc.AddFirst(new XElement("Value"));
+                using (Stream st = new MemoryStream())
+                {
+                    doc.Save(st);
+                    st.Position = 0;
+                    client.UpdateProjectItems(st);
                 }
             }
 
             dataGridView1.DataSource = table;
+            gridControl1.DataSource = table;
 
             bindingSource = new BindingSource();
             bindingSource.DataSource = table[0];
 
-            OneRow oneRow = new OneRow(bindingSource);
+            /*OneRow oneRow = new OneRow(bindingSource);
             oneRow.Show();
 
             textBox1.DataBindings.Clear();
@@ -142,7 +175,7 @@ namespace ITypedListImpImplementation
 
             textBox1.DataBindings.Add("Text", bindingSource, "Field1", false, DataSourceUpdateMode.OnPropertyChanged);
             textBox2.DataBindings.Add("Text", bindingSource, "Field2", false, DataSourceUpdateMode.OnPropertyChanged);
-            label1.DataBindings.Add("Text", bindingSource, "Field3");
+            label1.DataBindings.Add("Text", bindingSource, "Field3");*/
 
             stopWatch.Stop();
             label1.Text = string.Format("Tieme: {0}", stopWatch.Elapsed);
